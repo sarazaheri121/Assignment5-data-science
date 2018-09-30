@@ -1,0 +1,48 @@
+---
+title: "Assignment5"
+output: html_document
+---
+
+```{r echo=TRUE}
+df<-read.csv("yob2016.txt",header =TRUE, sep=";")
+summary(df)
+str(df)
+Red<-grep("yyy$",df$Emma,value = TRUE)
+y2016<-subset(df,df$Emma !=Red)
+```
+
+
+```{r echo=TRUE}
+y2015<-read.csv("yob2015.txt",header = TRUE, sep = ",")
+
+tail(df,10)
+
+cat("total children given that name for year 2015 in all cases are 5")
+
+final<- merge(y2015,y2016, by=c("Emma","F"), all = FALSE)
+```
+
+```{r echo=TRUE}
+final$total<- final$X20415 + final$X19414
+
+Totalpopularname <- sum(final$total)
+cat("totol popular name is:\n")
+print(Totalpopularname)
+
+Popular <- final[order(final$total),]
+
+tail(Popular,10)
+
+PopularGirls <- subset(Popular, Popular$F == "F")
+
+TopGirlsname <- tail(PopularGirls, 10)
+write.csv(TopGirlsname$Emma, file = "Top10Girlsname.csv")
+
+```
+
+
+```{r echo=TRUE}
+cat("Github address for this project is:\n https://github.com/sarazaheri121/Assignment5-data-science.git")
+
+```
+
